@@ -1,5 +1,5 @@
 {
-	"name": "typescript-react-package-starter",
+	"name": "devtool.sh",
 	"description": "",
 	"version": "0.0.0",
 	"author": "",
@@ -10,7 +10,7 @@
 		"url": ""
 	},
 	"scripts": {
-		"dev": "concurrently \"pnpm build --watch\" \"pnpm storybook\" \"pnpm test\" ",
+		"dev": "concurrently \"pnpm build --watch\" \"pnpm test\" \"",
 		"build": "tsup",
 		"lint": "biome check --write --unsafe .",
 		"lint:ci": "biome check --unsafe .",
@@ -28,7 +28,15 @@
 		".": {
 			"require": "./dist/index.js",
 			"import": "./dist/index.mjs"
+		},
+		"./cli": {
+			"require": "./dist/cli.js",
+			"import": "./dist/cli.mjs"
 		}
+	},
+	"bin": {
+		"devtool": "./dist/cli.js",
+		"devtool.sh": "./dist/cli.js"
 	},
 	"files": ["dist"],
 	"config": {
@@ -64,6 +72,7 @@
 		"@storybook/test": "8.6.2",
 		"@testing-library/jest-dom": "6.6.3",
 		"@testing-library/react": "16.2.0",
+		"@types/js-yaml": "^4.0.9",
 		"@types/node": "22.13.8",
 		"@types/react": "18.3.13",
 		"@types/react-dom": "18.3.1",
@@ -99,5 +108,10 @@
 			"esbuild",
 			"lefthook"
 		]
+	},
+	"dependencies": {
+		"chalk": "^5.4.1",
+		"js-yaml": "^4.1.0",
+		"zod": "^3.24.2"
 	}
 }

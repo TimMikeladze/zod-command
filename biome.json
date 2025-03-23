@@ -47,7 +47,8 @@
 			},
 			"performance": {
 				"noReExportAll": "off",
-				"noBarrelFile": "off"
+				"noBarrelFile": "off",
+				"useTopLevelRegex": "off"
 			},
 			"suspicious": {
 				"noReactSpecificProps": "off",
@@ -65,6 +66,10 @@
 				"noUndeclaredDependencies": "off",
 				"noUnusedVariables": "off",
 				"noNodejsModules": "off"
+			},
+			"complexity": {
+				"all": true,
+				"noForEach": "off"
 			}
 		}
 	},
