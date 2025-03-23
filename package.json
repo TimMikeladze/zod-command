@@ -10,7 +10,7 @@
 		"url": ""
 	},
 	"scripts": {
-		"dev": "concurrently \"pnpm build --watch\" \"pnpm test\" \"",
+		"dev": "concurrently \"pnpm build --watch\" \"pnpm test\"",
 		"build": "tsup",
 		"lint": "biome check --write --unsafe .",
 		"lint:ci": "biome check --unsafe .",
@@ -37,7 +37,8 @@
 	},
 	"bin": {
 		"devtool": "./dist/cli.js",
-		"devtool.sh": "./dist/cli.js"
+		"devtool.sh": "./dist/cli.js",
+		"dt": "./dist/cli.js"
 	},
 	"files": ["dist"],
 	"config": {

@@ -189,3 +189,122 @@ That's awesome! Feel free to add it to the list.
 ⏲️ **[Fake Time Series](https://github.com/TimMikeladze/fake-time-series/)** - A flexible CLI tool and library for generating fake time series data. Perfect for testing, development, and demonstration purposes.
 
 📡 **[Install Command](https://github.com/TimMikeladze/react-install-command/)** - A React component for rendering a 'npm install <package name>' command block. Supports multiple package managers.
+
+# DevTool
+
+A TypeScript-based CLI framework for building powerful command-line tools.
+
+## Features
+
+- Type-safe commands with input validation using Zod
+- Command grouping and hierarchy
+- Configuration management
+- Plugin system
+- Comprehensive logging
+
+## Getting Started
+
+```typescript
+import { createCli, z } from 'devtool';
+
+// Create a CLI with metadata
+const cli = createCli({
+  name: 'my-cli-tool',
+  description: 'A tool for doing amazing things',
+  version: '1.0.0',
+  author: 'Your Name',
+  homepage: 'https://github.com/yourusername/my-cli-tool',
+  license: 'MIT'
+});
+
+// Add a command
+cli.add({
+  command: 'hello',
+  description: 'Say hello to someone',
+  group: 'Greetings'
+})
+.input(
+  z.object({
+    name: z.string().describe('The name to greet'),
+    loud: z.boolean().optional().describe('Whether to greet loudly')
+  })
+)
+.action(async ({ parsedInput, context }) => {
+  const { name, loud = false } = parsedInput;
+  const greeting = `Hello, ${name}!`;
+  
+  console.log(loud ? greeting.toUpperCase() : greeting);
+  return { greeting };
+});
+
+// Run the CLI
+cli.run();
+```
+
+## Setting CLI Metadata
+
+You can set metadata for your CLI tool to provide information about your application:
+
+```typescript
+const cli = createCli({
+  name: 'my-cli',              // Name of your CLI tool
+  description: 'Description',  // Short description
+  version: '1.0.0',            // Version number
+  author: 'Your Name',         // Author information
+  homepage: 'https://example.com', // Homepage URL
+  license: 'MIT',              // License type
+  repository: 'github.com/user/repo' // Repository URL
+});
+```
+
+You can also update metadata after creation:
+
+```typescript
+cli.setMetadata({
+  version: '1.1.0',
+  description: 'Updated description'
+});
+```
+
+## Configuration
+
+To configure your CLI tool:
+
+```typescript
+cli.configure({
+  schema: z.object({
+    apiKey: z.string(),
+    debug: z.boolean().default(false)
+  }),
+  defaults: {
+    debug: false
+  },
+  configFiles: ['.myclirc', '.myclirc.json'],
+  envPrefix: 'MYCLI_'
+});
+```
+
+## Commands and Subcommands
+
+```typescript
+// Add a command
+cli.add({
+  command: 'main',
+  description: 'Main command',
+  group: 'Core'
+})
+.input(z.object({ /* ... */ }))
+.action(async ({ parsedInput }) => { /* ... */ });
+
+// Add a subcommand
+cli.add({
+  command: 'main:sub',
+  description: 'Subcommand'
+})
+.input(z.object({ /* ... */ }))
+.action(async ({ parsedInput }) => { /* ... */ });
+```
+
+## License
+
+MIT
