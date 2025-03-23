@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import * as fs from "node:fs";
 import * as path from "node:path";
 import chalk from "chalk";
@@ -8,17 +9,17 @@ import { z } from "zod";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 // Core types
-type CommandHandler<T, R = any> = (args: {
+export type CommandHandler<T, R = any> = (args: {
 	parsedInput: T;
 	context: CommandContext;
 	config: any;
 }) => Promise<R> | R;
 
-interface CommandContext {
+export interface CommandContext {
 	logger: Logger;
 }
 
-interface CommandDefinition<T, R = any> {
+export interface CommandDefinition<T, R = any> {
 	name: string;
 	description: string;
 	inputSchema: z.ZodType<T>;
@@ -31,7 +32,7 @@ interface CommandDefinition<T, R = any> {
 	parent?: string;
 }
 
-interface CommandConfig {
+export interface CommandConfig {
 	command: string;
 	description?: string;
 	title?: string;
@@ -40,7 +41,7 @@ interface CommandConfig {
 	[key: string]: any;
 }
 
-interface Logger {
+export interface Logger {
 	info: (message: string) => void;
 	error: (message: string) => void;
 	warn: (message: string) => void;
@@ -48,7 +49,7 @@ interface Logger {
 	debug: (message: string) => void;
 }
 
-class ConsoleLogger implements Logger {
+export class ConsoleLogger implements Logger {
 	private readonly debugEnabled: boolean;
 
 	constructor(debug = false) {
@@ -78,7 +79,7 @@ class ConsoleLogger implements Logger {
 	}
 }
 
-interface Plugin {
+export interface Plugin {
 	name: string;
 	version: string;
 	description?: string;
@@ -86,7 +87,7 @@ interface Plugin {
 	initialize: (cli: CliBuilder) => void;
 }
 
-const pluginManifestSchema = z.object({
+export const pluginManifestSchema = z.object({
 	name: z.string(),
 	version: z.string(),
 	description: z.string().optional(),
@@ -95,32 +96,32 @@ const pluginManifestSchema = z.object({
 	type: z.enum(["typescript", "javascript"]).default("javascript"),
 });
 
-type PluginManifest = z.infer<typeof pluginManifestSchema>;
+export type PluginManifest = z.infer<typeof pluginManifestSchema>;
 
-interface ConfigOptions<T> {
+export interface ConfigOptions<T> {
 	schema: z.ZodType<T>;
 	configFiles?: string[];
 	envPrefix?: string;
 	defaults?: Partial<T>;
 }
 
-interface CliOptions {
+export interface CliOptions {
 	debug?: boolean;
 	pluginsDir?: string;
 }
 
 // Define a type for configuration values - simplify to avoid type issues
-type ConfigValue = any; // eslint-disable-line @typescript-eslint/no-explicit-any
-interface ConfigObject {
+export type ConfigValue = any; // eslint-disable-line @typescript-eslint/no-explicit-any
+export interface ConfigObject {
 	[key: string]: ConfigValue;
 }
 
-interface ConfigLoader {
+export interface ConfigLoader {
 	canLoad(filePath: string): boolean;
 	load(filePath: string): ConfigObject;
 }
 
-class JsConfigLoader implements ConfigLoader {
+export class JsConfigLoader implements ConfigLoader {
 	canLoad(filePath: string): boolean {
 		return filePath.endsWith(".js");
 	}
@@ -136,7 +137,7 @@ class JsConfigLoader implements ConfigLoader {
 	}
 }
 
-class TsConfigLoader implements ConfigLoader {
+export class TsConfigLoader implements ConfigLoader {
 	canLoad(filePath: string): boolean {
 		return filePath.endsWith(".ts");
 	}
@@ -159,7 +160,7 @@ class TsConfigLoader implements ConfigLoader {
 	}
 }
 
-class JsonConfigLoader implements ConfigLoader {
+export class JsonConfigLoader implements ConfigLoader {
 	canLoad(filePath: string): boolean {
 		return filePath.endsWith(".json");
 	}
@@ -176,7 +177,7 @@ class JsonConfigLoader implements ConfigLoader {
 	}
 }
 
-class YamlConfigLoader implements ConfigLoader {
+export class YamlConfigLoader implements ConfigLoader {
 	canLoad(filePath: string): boolean {
 		return filePath.endsWith(".yml") || filePath.endsWith(".yaml");
 	}
@@ -193,7 +194,7 @@ class YamlConfigLoader implements ConfigLoader {
 	}
 }
 
-class ConfigLoaderRegistry {
+export class ConfigLoaderRegistry {
 	private loaders: ConfigLoader[] = [];
 
 	constructor() {
@@ -212,7 +213,7 @@ class ConfigLoaderRegistry {
 	}
 }
 
-class PluginManager {
+export class PluginManager {
 	private plugins: Map<string, Plugin> = new Map();
 	private cli: CliBuilder;
 	private logger: Logger;
@@ -303,7 +304,7 @@ class PluginManager {
 	}
 }
 
-class ConfigManager<T> {
+export class ConfigManager<T> {
 	private schema: z.ZodType<T>;
 	private configFiles: string[];
 	private envPrefix: string;
@@ -452,7 +453,7 @@ class ConfigManager<T> {
 	}
 }
 
-class ActionBuilder<T = any, R = any> {
+export class ActionBuilder<T = any, R = any> {
 	private name = "";
 	private description = "";
 	private inputZodSchema: z.ZodType<T> | null = null;
@@ -589,7 +590,7 @@ class ActionBuilder<T = any, R = any> {
 	}
 }
 
-class CliBuilder {
+export class CliBuilder {
 	private commands: Map<string, CommandDefinition<any, any>> = new Map();
 	private logger: Logger;
 	private configManager: ConfigManager<any> | null = null;
@@ -649,7 +650,7 @@ class CliBuilder {
 	}
 }
 
-class Devtool<T> {
+export class Devtool<T> {
 	private config: any;
 	private logger: Logger;
 	private commands: Map<string, CommandDefinition<any, any>> = new Map();
@@ -862,18 +863,9 @@ class Devtool<T> {
 	}
 }
 
-function createCli(): CliBuilder {
+export function createCli(): CliBuilder {
 	const logger = new ConsoleLogger();
 	return new CliBuilder(logger);
 }
 
-export {
-	createCli,
-	z,
-	type CommandDefinition,
-	type CommandHandler,
-	type CommandContext,
-	type Plugin,
-	type ConfigLoader,
-	type Logger,
-};
+export { z };
