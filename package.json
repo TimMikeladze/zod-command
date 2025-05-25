@@ -1,16 +1,25 @@
 {
-	"name": "typescript-react-package-starter",
-	"description": "",
+	"name": "mydevtool",
+	"description": "A Zod-powered CLI framework for building command-line tools in TypeScript.",
 	"version": "0.0.0",
-	"author": "",
-	"license": "",
-	"keywords": [],
+	"author": "Tim Mikeladze <tim.mikeladze@gmail.com>",
+	"license": "MIT",
+	"keywords": [
+		"cli",
+		"framework",
+		"zod",
+		"typescript",
+		"command-line",
+		"tool",
+		"mydevtool",
+		"devtool"
+	],
 	"repository": {
 		"type": "git",
-		"url": ""
+		"url": "https://github.com/timmikeladze/mydevtool"
 	},
 	"scripts": {
-		"dev": "concurrently \"pnpm build --watch\" \"pnpm storybook\" \"pnpm test\" ",
+		"dev": "concurrently \"pnpm build --watch\" \"pnpm test\"",
 		"build": "tsup",
 		"lint": "biome check --write --unsafe .",
 		"lint:ci": "biome check --unsafe .",
@@ -21,14 +30,24 @@
 		"storybook:build": "storybook build",
 		"release": "pnpm build && pnpm release-it",
 		"link:self": "pnpm link --global",
-		"prepare": "lefthook install"
+		"prepare": "lefthook install",
+		"cli": "pnpm build && echo && node dist/cli.js"
 	},
 	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
 			"require": "./dist/index.js",
 			"import": "./dist/index.mjs"
+		},
+		"./cli": {
+			"require": "./dist/cli.js",
+			"import": "./dist/cli.mjs"
 		}
+	},
+	"bin": {
+		"devtool": "./dist/cli.js",
+		"devtool.sh": "./dist/cli.js",
+		"dt": "./dist/cli.js"
 	},
 	"files": ["dist"],
 	"config": {
@@ -54,36 +73,38 @@
 		"@biomejs/biome": "1.9.4",
 		"@ryansonshine/commitizen": "4.2.8",
 		"@ryansonshine/cz-conventional-changelog": "3.3.4",
-		"@storybook/addon-essentials": "8.6.2",
-		"@storybook/addon-interactions": "8.6.2",
-		"@storybook/addon-links": "8.6.2",
-		"@storybook/addon-webpack5-compiler-swc": "2.1.0",
-		"@storybook/blocks": "8.6.2",
-		"@storybook/react": "8.6.2",
-		"@storybook/react-webpack5": "8.6.2",
-		"@storybook/test": "8.6.2",
+		"@storybook/addon-essentials": "8.6.8",
+		"@storybook/addon-interactions": "8.6.8",
+		"@storybook/addon-links": "8.6.8",
+		"@storybook/addon-webpack5-compiler-swc": "3.0.0",
+		"@storybook/blocks": "8.6.8",
+		"@storybook/react": "8.6.8",
+		"@storybook/react-webpack5": "8.6.8",
+		"@storybook/test": "8.6.8",
 		"@testing-library/jest-dom": "6.6.3",
 		"@testing-library/react": "16.2.0",
-		"@types/node": "22.13.8",
-		"@types/react": "18.3.13",
-		"@types/react-dom": "18.3.1",
-		"@types/react-test-renderer": "18.3.0",
+		"@types/js-yaml": "4.0.9",
+		"@types/node": "22.13.11",
+		"@types/react": "19.0.12",
+		"@types/react-dom": "19.0.4",
+		"@types/react-test-renderer": "19.0.0",
 		"@vitest/coverage-v8": "3.0.9",
 		"concurrently": "9.1.2",
 		"jsdom": "26.0.0",
-		"lefthook": "1.11.2",
+		"lefthook": "1.11.3",
 		"prop-types": "15.8.1",
-		"react": "18.3.1",
-		"react-dom": "18.3.1",
-		"react-test-renderer": "18.3.1",
+		"react": "19.0.0",
+		"react-dom": "19.0.0",
+		"react-test-renderer": "19.0.0",
 		"release-it": "18.1.2",
-		"storybook": "8.6.2",
+		"storybook": "8.6.8",
 		"ts-node": "10.9.2",
 		"tsconfig-paths": "4.2.0",
 		"tsup": "8.4.0",
 		"tsx": "4.19.3",
 		"typescript": "5.8.2",
-		"vitest": "3.0.9"
+		"vitest": "3.0.9",
+		"wikipedia": "2.1.2"
 	},
 	"peerDependencies": {
 		"react": ">=17",
@@ -99,5 +120,10 @@
 			"esbuild",
 			"lefthook"
 		]
+	},
+	"dependencies": {
+		"chalk": "5.4.1",
+		"js-yaml": "4.1.0",
+		"zod": "3.24.2"
 	}
 }
