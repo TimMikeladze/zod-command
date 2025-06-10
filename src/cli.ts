@@ -1,11 +1,11 @@
-import MyDevTool from ".";
+import ZodCommand from ".";
 
 if (require.main === module) {
-	const cli = new MyDevTool({
-		name: "mydevtool",
+	const cli = new ZodCommand({
+		name: "zod-command",
 		version: "1.0.0",
 		description: "A CLI framework for building powerful command-line tools",
-		aliases: ["mydevtool", "mdt"],
+		aliases: ["zod-command", "zc"],
 	});
 
 	cli.run();

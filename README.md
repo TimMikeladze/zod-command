@@ -1,4 +1,4 @@
-# MyDevTool
+# ZodCommand
 
 A Zod-powered CLI framework for building command-line tools in TypeScript.
 
@@ -17,11 +17,11 @@ A Zod-powered CLI framework for building command-line tools in TypeScript.
 ## Installation
 
 ```bash
-npm install mydevtool
+npm install zod-command
 # or
-yarn add mydevtool
+yarn add zod-command
 # or
-pnpm add mydevtool
+pnpm add zod-command
 ```
 
 ## Quick Start
@@ -29,13 +29,13 @@ pnpm add mydevtool
 ### Basic CLI Setup
 
 ```typescript
-import MyDevTool, { z } from 'mydevtool';
+import ZodCommand, { z } from 'zod-command';
 
-const cli = new MyDevTool({
+const cli = new ZodCommand({
   name: "my-cli",
   version: "1.0.0", 
   description: "My awesome CLI tool",
-  aliases: ["mycli", "mc"]
+  aliases: ["zod-command", "zc"]
 });
 
 // Add a simple command
@@ -61,9 +61,9 @@ cli.run();
 ### Advanced Example with Subcommands
 
 ```typescript
-import MyDevTool, { z } from 'mydevtool';
+import ZodCommand, { z } from 'zod-command';
 
-const cli = new MyDevTool({
+const cli = new ZodCommand({
   name: "devtool",
   version: "2.0.0",
   description: "A development toolkit"
@@ -109,10 +109,10 @@ cli.run();
 
 ## Configuration Management
 
-MyDevTool supports multiple configuration file formats and environment variables:
+ZodCommand supports multiple configuration file formats and environment variables:
 
 ```typescript
-import MyDevTool, { z } from 'mydevtool';
+import ZodCommand, { z } from 'zod-command';
 
 const configSchema = z.object({
   database: z.object({
@@ -123,7 +123,7 @@ const configSchema = z.object({
   debug: z.boolean().default(false)
 });
 
-const cli = new MyDevTool({
+const cli = new ZodCommand({
   name: "my-app"
 });
 
@@ -163,9 +163,9 @@ cli.run();
 Add cross-cutting functionality with middleware:
 
 ```typescript
-import MyDevTool, { z, createMiddleware } from 'mydevtool';
+import ZodCommand, { z, createMiddleware } from 'zod-command';
 
-const cli = new MyDevTool({ name: "my-cli" });
+const cli = new ZodCommand({ name: "my-cli" });
 
 // Create authentication middleware
 const authMiddleware = createMiddleware().define(async ({ parsedInput, ctx, next }) => {
@@ -212,7 +212,7 @@ Extend functionality with plugins:
 
 ```typescript
 // plugin.ts
-import { Plugin, CliBuilder } from 'mydevtool';
+import { Plugin, CliBuilder } from 'zod-command';
 
 const myPlugin: Plugin = {
   name: "my-plugin",
@@ -234,7 +234,7 @@ export default myPlugin;
 ```
 
 ```json
-// mydevtool-plugin.json
+// zod-command-plugin.json
 {
   "name": "my-plugin",
   "version": "1.0.0", 
@@ -247,7 +247,7 @@ export default myPlugin;
 Load plugins:
 
 ```typescript
-const cli = new MyDevTool({ name: "my-cli" });
+const cli = new ZodCommand({ name: "my-cli" });
 
 cli.run({
   pluginsDir: "./plugins"
@@ -278,7 +278,7 @@ cli.add({
 
 ## Built-in Commands
 
-MyDevTool automatically provides:
+ZodCommand automatically provides:
 
 - `help` - Display help information
 - `version` - Show version information
@@ -318,10 +318,10 @@ export MYAPP_DEBUG=true
 
 ## TypeScript Support
 
-MyDevTool is built with TypeScript and provides full type safety:
+ZodCommand is built with TypeScript and provides full type safety:
 
 ```typescript
-import MyDevTool, { z, CommandHandler } from 'mydevtool';
+import ZodCommand, { z, CommandHandler } from 'zod-command';
 
 // Type-safe input/output schemas
 const inputSchema = z.object({
@@ -356,7 +356,7 @@ cli.add({
 
 ## API Reference
 
-### MyDevTool Class
+### ZodCommand Class
 
 - `constructor(metadata?: CliMetadata)` - Create new CLI instance
 - `add(config: CommandConfig)` - Add a command

@@ -1,9 +1,9 @@
 // Use require for wikipedia since there might not be type definitions
 import wikipedia from "wikipedia";
-import { MyDevTool, z } from "../src";
+import { ZodCommand, z } from "../src";
 
 // Create the CLI instance with metadata
-const cli = new MyDevTool({
+const cli = new ZodCommand({
 	name: "wikipedia-cli",
 	description: "A CLI tool to search and retrieve information from Wikipedia",
 	version: "1.0.0",

@@ -1,5 +1,5 @@
 {
-	"name": "mydevtool",
+	"name": "zod-command",
 	"description": "A Zod-powered CLI framework for building command-line tools in TypeScript.",
 	"version": "0.0.1",
 	"author": "Tim Mikeladze <tim.mikeladze@gmail.com>",
@@ -11,12 +11,12 @@
 		"typescript",
 		"command-line",
 		"tool",
-		"mydevtool",
+		"zod-command",
 		"devtool"
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/timmikeladze/mydevtool"
+		"url": "https://github.com/timmikeladze/zod-command"
 	},
 	"scripts": {
 		"dev": "concurrently \"pnpm build --watch\" \"pnpm test\"",
@@ -123,6 +123,7 @@
 	},
 	"dependencies": {
 		"chalk": "5.4.1",
+		"jose": "6.0.11",
 		"js-yaml": "4.1.0",
 		"zod": "3.24.2"
 	}
