@@ -263,7 +263,7 @@ export class PluginManager {
 
 	private async loadPlugin(pluginDir: string): Promise<void> {
 		try {
-			const manifestPath = path.join(pluginDir, "mydevtool-plugin.json");
+			const manifestPath = path.join(pluginDir, "zod-command-plugin.json");
 
 			if (!fs.existsSync(manifestPath)) {
 				this.logger.warn(`Plugin manifest not found: ${manifestPath}`);
@@ -1371,7 +1371,7 @@ export class Devtool<T = unknown> {
 	}
 }
 
-export class MyDevTool {
+export class ZodCommand {
 	private logger: Logger;
 	private cli: CliBuilder;
 
@@ -1406,7 +1406,7 @@ export class MyDevTool {
 	}
 }
 
-export default MyDevTool;
+export default ZodCommand;
 
 // Example usage:
 // const cli = createCli({
@@ -1414,7 +1414,7 @@ export default MyDevTool;
 //   description: "A powerful development toolkit",
 //   version: "1.0.0",
 //   author: "Your Name",
-//   aliases: ["mdt", "mydevtool"] // CLI tool aliases
+//   aliases: ["mdt", "zod-command"] // CLI tool aliases
 // });
 
 export { z };
